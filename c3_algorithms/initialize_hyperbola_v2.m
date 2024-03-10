@@ -11,6 +11,18 @@ function [a_i, b_i, x_i, y_i, init_p]=initialize_hyperbola_v2(x,y,win)
 % The final hyperbola should have the following form:
 % (y-y_i)^2/a_i^2 - (x-x_i)^2/b_i^2 = 1
 
+% function [a_i, b_i, x_i, y_i, init_p]=initialize_hyperbola(x,y, win) 用于
+% 根据给定的噪声计算朝南双曲线的参数
+% 点
+% x 是包含给定点的 x 坐标的向量
+% y 是包含给定点的 y 坐标的向量
+% win 是窗口沿x轴的长度例如2
+% (x_i,y_i) 是双曲线的中心。
+% a_i 是半长轴的长度
+% b_i 为半虚轴长度
+% 最终的双曲线应具有以下形式：
+% (y-y_i)^2/a_i^2 - (x-x_i)^2/b_i^2 = 1
+
 [y_max, ind] = max(y);
 max_x = max(x);
 min_x = min(x);

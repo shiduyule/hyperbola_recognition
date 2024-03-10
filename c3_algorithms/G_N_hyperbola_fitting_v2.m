@@ -8,7 +8,15 @@ function [a, b, xc,yc, a_ini, b_ini, xc_ini, yc_ini, time] = G_N_hyperbola_fitti
 % (xc,yc) is the center of the hyperbola.
 % a is the length of semi-major axis
 % b is the length of semi-imaginary axis
+% function [a, b, xc,yc] = Gaussian_Newton_hyperbola_fitting(x,y) 用于
+% 将双曲线拟合到给定的噪声点
 
+% x 是包含给定点的 x 坐标的向量
+% y 是包含给定点的 y 坐标的向量
+% win 是初始化时窗口的长度
+%(xc,yc)是双曲线的中心。
+%a是半长轴的长度
+% b 为半虚轴长度
 tic
 if size(x,1) ~= 1
     x = x';            %x should be a row vector

@@ -10,17 +10,36 @@ function output = c3_hyperbola_fitting(real_im)
 %   Real-Time Hyperbola Recognition and Fitting in GPR Data. 
 %   IEEE Transactions on Geoscience and Remote Sensing. 51-62 55.1 
 
+
+% 该文件提供了用于检测和拟合双曲线的 c3_algorithm
+% 形成探地雷达 (GPR) B 扫描图像。
+
+% real_im 是灰度 GPR 图像
+% 输出是一个结构体，存储所有拟合双曲线的 (x, y) 坐标
+
+% 如果您在工作中使用此代码，请引用以下文章：
+% 窦Q，魏L，Magee D，Cohn A.2017。
+% GPR 数据中的实时双曲线识别和拟合百分比。
+% IEEE 地球科学和遥感汇刊。 51-62 55.1  
+
+
 close all
 
 real_im = double(real_im);
 
 tic
 % Step 1: region clustering using C3 alorithm
+% 步骤1：使用C3算法进行区域聚类
+%% 这一步中所使用的 column_connection_clustering_v2   函数在同个文件夹下  这里只是调用一下 
+
+
 [xx, yy, xxx, yyy] = column_connection_clustering_v2(real_im,0.25, 2, 1, 0.1);
 x = -ones(3,length(xx));
 
 % Step 2: fitting hyperbola
 % Extract the ncc value of detected clusters w.r.t. a predefined hyperbola
+% 步骤2：拟合双曲线
+% 提取检测到的簇的 ncc 值 预定义的双曲线
 for i = 1:size(yyy,1)
     [dy1, dy2, ~, ~] = ncc_values_v2(xxx{i,1},yyy{i,1});
     x(1,i) = dy1;
@@ -28,12 +47,14 @@ for i = 1:size(yyy,1)
 end
 
 % Change the values of y coordinates into negative
+% 将y坐标的值改为负数
 for i = 1:size(yy,1)
     yy{i,1} = -yy{i,1};
     yyy{i,1} = -yyy{i,1};
 end
 
 % Load the trained Neural Network hyperbola variables of v and w
+% 加载训练好的神经网络双曲线变量 v 和 w
 load('trained_vectors.mat') 
 y = -ones(size(x));
 vv = v*x;
